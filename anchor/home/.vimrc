@@ -3,16 +3,19 @@
 " Description: carloswanguw dotfile (.vimrc)
 "------------------------------------------------------------
 
-function! StarterConfigs()
+" function! StarterConfigs()
     set nocompatible             " ignore compatibility with vi (for vim)
+
+    " remap leader
+    let mapleader=","
     " Switch on syntax highlighting (font/color settings)
     if !exists("g:syntax_on")    
         syntax enable
     endif
 
-endfunction 
+" endfunction 
 
-function! Vundle()
+" function! Vundle()
     " Brief help
     " :PluginList       - lists configured plugins
     " :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
@@ -59,7 +62,7 @@ function! Vundle()
     "" Wiki
     Plugin 'vimwiki/vimwiki'                  " Wiki for vim (<leader>w+s for wiki index)
     Plugin 'mattn/calendar-vim'               " Calendar to augment vim-wiki
-    Plugin 'tpope/vim-speeddating'            " Increment/Decrement time/date to wiki date (<Ctl>a, <Ctl>x)
+    "Plugin 'tpope/vim-speeddating'            " Increment/Decrement time/date to wiki date (<Ctl>a, <Ctl>x)
     "Plugin 'blindFS/vim-taskwarrior'          " Taskwarrior integration to vim (requires taskwarrior install)
     "Plugin 'Shougo/unite.vim'                 " Easier bookmark and history ops for taskwarrior
     "" TMUX specific
@@ -74,16 +77,16 @@ function! Vundle()
     " Cleanup
     call vundle#end()                         " End Vundle
     filetype indent plugin on                 " Re-enable filetype auto-detection
-endfunction
+" endfunction
 
-function! ConfigColorScheme()
+" function! ConfigColorScheme()
     " Gruvbox
     set background=dark
     let g:gruvbox_contrast_dark="hard"
     colorscheme gruvbox
-endfunction
+" endfunction
 
-function! RecommendedSettings()
+" function! RecommendedSettings()
 
     " High level operation and display
     set hidden            " Keeps buffers hidden instead of closing them, useful for undos and file edits
@@ -124,9 +127,9 @@ function! RecommendedSettings()
     " 80 character limit highlight
     hi ColorColumn ctermbg=235 guibg=#2c2d27         " Set color highlights
     let &colorcolumn="80,".join(range(100,999),",")  " Set the highlights at 80+ and 100+ chars
-endfunction
+" endfunction
 
-function! ConfigSpellChecker()
+" function! ConfigSpellChecker()
     if has("spell")
         set spelllang=en_us        " Set language
         " Toggle spelling with <F5> key
@@ -136,9 +139,9 @@ function! ConfigSpellChecker()
         " Limit the spelling suggestions to the top 10 only
         set sps=best,10
     endif
-endfunction
+" endfunction
 
-function! ConfigTMUXforVim()
+" function! ConfigTMUXforVim()
     "TMUX compatibility with Vim
     if &term =~ '^screen' && exists('$TMUX')
         " TMUX knows the extended mouse mode
@@ -168,9 +171,9 @@ function! ConfigTMUXforVim()
         execute "set <F11>=\e[23;*~"
         execute "set <F12>=\e[24;*~"
     endif
-endfunction
+" endfunction
 
-function! ConfigPluginSyntastic()
+" function! ConfigPluginSyntastic()
     " [buffer number] followed by filename:
     set statusline=[%n]\ %t
     " status line settings
@@ -193,9 +196,9 @@ function! ConfigPluginSyntastic()
     
     " using multiple checkers for cpp
     let g:syntastic_cpp_checkers=['gcc','cpplint']
-endfunction
+" endfunction
 
-function! ConfigPluginNERDTree()
+" function! ConfigPluginNERDTree()
     " start up NERDtree every time vim loads
     autocmd VimEnter * NERDTree
     " Go to previous (last accessed) window. (this will focus away from the
@@ -211,9 +214,10 @@ function! ConfigPluginNERDTree()
     " Remaps vertical and horizontal splits to match the rest of the vim / tmux
     let NERDTreeMapOpenSplit='<C-x>'
     let NERDTreeMapOpenVSplit='<C-v>'
-endfunction
 
-function! ConfigPluginCtrlP()
+" endfunction
+
+" function! ConfigPluginCtrlP()
     " change the default mapping and the default command to invoke ctrlp
     let g:ctrlp_map = '<c-p>'
     let g:ctrlp_cmd = 'CtrlP'
@@ -230,9 +234,9 @@ function! ConfigPluginCtrlP()
     
     " ignore files in .gitignore
     let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
-endfunction
+" endfunction
 
-function! ConfigKeyMappings()
+" function! ConfigKeyMappings()
     " Map Y to act like D and C, i.e. to yank until EOL, rather than act as yy,
     " which is the default
     map Y y$
@@ -344,9 +348,9 @@ function! ConfigKeyMappings()
     " ctrl + w =
     " " swap top/bottom or left/right split
     " Ctrl+W R
-endfunction
+" endfunction
 
-function! ConfigPluginNERDCommenter()
+" function! ConfigPluginNERDCommenter()
     " Add spaces after comment delimiters by default
     let g:NERDSpaceDelims = 1
     
@@ -367,9 +371,9 @@ function! ConfigPluginNERDCommenter()
     
     " Enable trimming of trailing whitespace when uncommenting
     let g:NERDTrimTrailingWhitespace = 1
-endfunction
+" endfunction
 
-function! ConfigPluginNeoComplete()
+" function! ConfigPluginNeoComplete()
     " Note: This option must be set in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
     " Disable AutoComplPop.
     let g:acp_enableAtStartup = 0
@@ -441,9 +445,9 @@ function! ConfigPluginNeoComplete()
     " For perlomni.vim setting.
     " https://github.com/c9s/perlomni.vim
     let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-endfunction
+" endfunction
 
-function! ConfigPluginEasyAlign()
+" function! ConfigPluginEasyAlign()
     nmap ga <Plug>(EasyAlign)
     xmap ga <Plug>(EasyAlign)
     
@@ -472,35 +476,35 @@ function! ConfigPluginEasyAlign()
                 \     'right_margin': 0
                 \   }
                 \ }
-endfunction
+" endfunction
 
-function! ConfigPluginArgWrap()
+" function! ConfigPluginArgWrap()
     nnoremap <silent> <leader>a :ArgWrap<CR>
     " ensures that the closing brace is tied to the last variable
     let g:argwrap_wrap_closing_brace = 0
-endfunction
+" endfunction
 
-function! ConfigPluginIndentGuides()
+" function! ConfigPluginIndentGuides()
     " set guide size = 1 space, only works on space tabs
     let g:indent_guides_guide_size = 1
-endfunction
+" endfunction
 
-function! ConfigPluginEasyMotion()
+" function! ConfigPluginEasyMotion()
     " Move to word (over different windows)
     " map  <Leader>.w <Plug>(easymotion-bd-w)
     nmap <Leader>.w <Plug>(easymotion-overwin-w)
     " Move to line
     " map <Leader>.L <Plug>(easymotion-bd-jk)
     nmap <Leader>.L <Plug>(easymotion-overwin-line)
-endfunction
+" endfunction
 
-function! ConfigPluginTagBar()
+" function! ConfigPluginTagBar()
     nmap <F8> :TagbarToggle<CR>
     " show line numbers in tagbar (1 = abs, 2 = relative)
     let g:tagbar_show_linenumbers = 1
-endfunction
+" endfunction
 
-function! ConfigPluginCLangFormat()
+" function! ConfigPluginCLangFormat()
     " use the current clang format (by setting the command to match what is installed)
     let g:clang_format#command = 'clang-format-3.8'
     
@@ -521,7 +525,7 @@ function! ConfigPluginCLangFormat()
     autocmd FileType c,cpp,objc map <buffer><Leader>cx <Plug>(operator-clang-format)
     " Toggle auto formatting:
     nmap </Leader>CF :ClangFormatAutoToggle<CR>
-endfunction
+" endfunction
 
 function! ToggleCalendar()
     execute ":Calendar"
@@ -542,7 +546,7 @@ function! ToggleCalendar()
     end
 endfunction
 
-function! ConfigPluginVimWiki()
+" function! ConfigPluginVimWiki()
     " vimwiki stuff "
     " Run multiple wikis "
     let g:vimwiki_list = [
@@ -561,108 +565,106 @@ function! ConfigPluginVimWiki()
     " Add folding for vimwiki
     let g:vimwiki_folding = 'expr'
     set foldlevelstart=20 " make sure we have everything unfolded initially
-endfunction
+" endfunction
 
-function! ConfigPluginSpeedDating()
+" function! ConfigPluginSpeedDating()
     " use <c-b> instead to do increment speed dating
     xmap <C-B> <Plug>SpeedDatingUp
     nmap <C-B> <Plug>SpeedDatingUp
-endfunction
+" endfunction
 
-function! ConfigPluginTaskWarrior()
-    " " if experiencing line-wrapping issues, uncomment
-    " let g:task_rc_override = 'rc.defaultwidth=0'
-    
-    " " if experiencing task truncation, uncomment 
-    " let g:task_rc_override = 'rc.defaultheight=0'
-    
-    " default command to start up vim-taskwarrior
-    nmap ,tw :TW<cr>
-    " default task report type
-    let g:task_report_name     = 'next'
-    " custom reports have to be listed explicitly to make them available
-    let g:task_report_command  = []
-    " whether the field under the cursor is highlighted
-    let g:task_highlight_field = 1
-    " can not make change to task data when set to 1
-    let g:task_readonly        = 0
-    " vim built-in term for task undo in gvim
-    let g:task_gui_term        = 1
-    " allows user to override task configurations. Seperated by space. Defaults to ''
-    let g:task_rc_override     = 'rc.defaultwidth=999'
-    " default fields to ask when adding a new task
-    let g:task_default_prompt  = ['tag', 'project', 'description', 'priority', 'due', 'depends']
-    " whether the info window is splited vertically
-    let g:task_info_vsplit     = 0
-    " info window size
-    let g:task_info_size       = 15
-    " info window position
-    let g:task_info_position   = 'belowright'
-    " directory to store log files defaults to taskwarrior data.location
-    let g:task_log_directory   = '~/.task'
-    " max number of historical entries
-    let g:task_log_max         = '20'
-    " forward arrow shown on statusline
-    let g:task_left_arrow      = ' <<'
-    " backward arrow ...
-    let g:task_left_arrow      = '>> '
-endfunction
+" " function! ConfigPluginTaskWarrior()
+"     " " if experiencing line-wrapping issues, uncomment
+"     " let g:task_rc_override = 'rc.defaultwidth=0'
+"
+"     " " if experiencing task truncation, uncomment
+"     " let g:task_rc_override = 'rc.defaultheight=0'
+"
+"     " default command to start up vim-taskwarrior
+"     nmap ,tw :TW<cr>
+"     " default task report type
+"     let g:task_report_name     = 'next'
+"     " custom reports have to be listed explicitly to make them available
+"     let g:task_report_command  = []
+"     " whether the field under the cursor is highlighted
+"     let g:task_highlight_field = 1
+"     " can not make change to task data when set to 1
+"     let g:task_readonly        = 0
+"     " vim built-in term for task undo in gvim
+"     let g:task_gui_term        = 1
+"     " allows user to override task configurations. Seperated by space. Defaults to ''
+"     let g:task_rc_override     = 'rc.defaultwidth=999'
+"     " default fields to ask when adding a new task
+"     let g:task_default_prompt  = ['tag', 'project', 'description', 'priority', 'due', 'depends']
+"     " whether the info window is splited vertically
+"     let g:task_info_vsplit     = 0
+"     " info window size
+"     let g:task_info_size       = 15
+"     " info window position
+"     let g:task_info_position   = 'belowright'
+"     " directory to store log files defaults to taskwarrior data.location
+"     let g:task_log_directory   = '~/.task'
+"     " max number of historical entries
+"     let g:task_log_max         = '20'
+"     " forward arrow shown on statusline
+"     let g:task_left_arrow      = ' <<'
+"     " backward arrow ...
+"     let g:task_left_arrow      = '>> '
+" " endfunction
 
-function! ConfigPluginCPPEnhancedHighlighting()
+" function! ConfigPluginCPPEnhancedHighlighting()
     " " optional highlight
     " let g:cpp_class_scope_highlight = 1
-endfunction
+" endfunction
 
-function! ConfigPluginFugitive()
+" function! ConfigPluginFugitive()
     " make sure Gdiff opens vertical windows
     set diffopt+=vertical
-endfunction
+" endfunction
 
-function! ConfigPluginDoxygenToolkit()
+" function! ConfigPluginDoxygenToolkit()
     nnoremap <leader>cd :Dox<cr>
     let g:DoxygenToolkit_briefTag_pre="@brief  "
     let g:DoxygenToolkit_paramTag_pre="@param "
     let g:DoxygenToolkit_returnTag="@return "
     let g:DoxygenToolkit_authorName="Carlos Wang"
     let g:DoxygenToolkit_licenseTag="TODO: TBD"
-endfunction
+" endfunction
 
-function! ConfigPluginDoxygenHighlighting()
+" function! ConfigPluginDoxygenHighlighting()
     let g:load_doxygen_syntax=1
     " set syntax=cpp.doxygen
-endfunction
+" endfunction
 
 " VimRC Loading Procedures
-" remap leader
-let mapleader=","
 
-" Startup
-call StarterConfigs()
-call Vundle()
-call ConfigColorScheme()
-call RecommendedSettings()
-call ConfigSpellChecker()
-call ConfigTMUXforVim()
-
-" Plugins
-call ConfigPluginSyntastic()
-call ConfigPluginNERDTree()
-call ConfigPluginCtrlP()
-call ConfigPluginNERDCommenter()
-call ConfigPluginNeoComplete()
-call ConfigPluginEasyAlign()
-call ConfigPluginArgWrap()
-call ConfigPluginIndentGuides()
-call ConfigPluginEasyMotion()
-call ConfigPluginTagBar()
-call ConfigPluginCLangFormat()
-call ConfigPluginVimWiki()
-call ConfigPluginSpeedDating()
-"call ConfigPluginTaskWarrior()
-call ConfigPluginCPPEnhancedHighlighting()
-call ConfigPluginFugitive()
-call ConfigPluginDoxygenToolkit()
-call ConfigPluginDoxygenHighlighting()
-
-" Configure Key Mappings
-call ConfigKeyMappings()
+" " Startup
+" call StarterConfigs()
+" call ConfigKeyMappings()
+" call Vundle()
+" call ConfigColorScheme()
+" call RecommendedSettings()
+" call ConfigSpellChecker()
+" call ConfigTMUXforVim()
+"
+" " Plugins
+" call ConfigPluginSyntastic()
+" call ConfigPluginNERDTree()
+" call ConfigPluginCtrlP()
+" call ConfigPluginNERDCommenter()
+" call ConfigPluginNeoComplete()
+" call ConfigPluginEasyAlign()
+" call ConfigPluginArgWrap()
+" call ConfigPluginIndentGuides()
+" call ConfigPluginEasyMotion()
+" call ConfigPluginTagBar()
+" call ConfigPluginCLangFormat()
+" call ConfigPluginVimWiki()
+" call ConfigPluginSpeedDating()
+" "call ConfigPluginTaskWarrior()
+" call ConfigPluginCPPEnhancedHighlighting()
+" call ConfigPluginFugitive()
+" call ConfigPluginDoxygenToolkit()
+" call ConfigPluginDoxygenHighlighting()
+"
+" " Configure Key Mappings
