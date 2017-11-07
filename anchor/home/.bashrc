@@ -114,7 +114,7 @@ if ! shopt -oq posix; then
 fi
 
 # source path environments for ROS
-source /opt/ros/indigo/setup.bash
+source /opt/ros/kinetic/setup.bash
 source ~/catkin_ws/devel/setup.bash
 
 # base 16 shell configuration

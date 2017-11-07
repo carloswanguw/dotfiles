@@ -5,6 +5,11 @@
 
 function! StarterConfigs()
     set nocompatible             " ignore compatibility with vi (for vim)
+    " Switch on syntax highlighting (font/color settings)
+    if !exists("g:syntax_on")    
+        syntax enable
+    endif
+
 endfunction 
 
 function! Vundle()
@@ -55,8 +60,8 @@ function! Vundle()
     Plugin 'vimwiki/vimwiki'                  " Wiki for vim (<leader>w+s for wiki index)
     Plugin 'mattn/calendar-vim'               " Calendar to augment vim-wiki
     Plugin 'tpope/vim-speeddating'            " Increment/Decrement time/date to wiki date (<Ctl>a, <Ctl>x)
-    Plugin 'blindFS/vim-taskwarrior'          " Taskwarrior integration to vim (requires taskwarrior install)
-    Plugin 'Shougo/unite.vim'                 " Easier bookmark and history ops for taskwarrior
+    "Plugin 'blindFS/vim-taskwarrior'          " Taskwarrior integration to vim (requires taskwarrior install)
+    "Plugin 'Shougo/unite.vim'                 " Easier bookmark and history ops for taskwarrior
     "" TMUX specific
     Plugin 'christoomey/vim-tmux-navigator'   " TMUX windows nav plugin
     "" CLang
@@ -79,10 +84,6 @@ function! ConfigColorScheme()
 endfunction
 
 function! RecommendedSettings()
-    " Switch on syntax highlighting (font/color settings)
-    if !exists("g:syntax_on")    
-        syntax enable
-    endif
 
     " High level operation and display
     set hidden            " Keeps buffers hidden instead of closing them, useful for undos and file edits
@@ -254,8 +255,6 @@ function! ConfigKeyMappings()
     " highlight last inserted text
     nnoremap gV `[v`]l
     
-    " remap leader
-    let mapleader=","
     
     " tab manipulation
     nnoremap <leader>tn :tabnew<CR>
@@ -634,6 +633,8 @@ function! ConfigPluginDoxygenHighlighting()
 endfunction
 
 " VimRC Loading Procedures
+" remap leader
+let mapleader=","
 
 " Startup
 call StarterConfigs()
@@ -642,8 +643,6 @@ call ConfigColorScheme()
 call RecommendedSettings()
 call ConfigSpellChecker()
 call ConfigTMUXforVim()
-call ConfigKeyMappings()
-call ToggleCalendar() 	" Used for VimWiki
 
 " Plugins
 call ConfigPluginSyntastic()
@@ -659,8 +658,11 @@ call ConfigPluginTagBar()
 call ConfigPluginCLangFormat()
 call ConfigPluginVimWiki()
 call ConfigPluginSpeedDating()
-call ConfigPluginTaskWarrior()
+"call ConfigPluginTaskWarrior()
 call ConfigPluginCPPEnhancedHighlighting()
 call ConfigPluginFugitive()
 call ConfigPluginDoxygenToolkit()
 call ConfigPluginDoxygenHighlighting()
+
+" Configure Key Mappings
+call ConfigKeyMappings()
