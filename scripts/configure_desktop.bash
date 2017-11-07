@@ -5,7 +5,7 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 REPO_DIR="$(dirname "$SCRIPT_DIR")"
 
 # Paths to config locations
-PUBLIC_CONFIGS_DIR="$REPO_DIR/configs"
+PUBLIC_CONFIGS_DIR="$REPO_DIR/anchor"
 PRIVATE_CONFIGS_DIR="$HOME/sync/dotfiles/common_configs"
 SYSTEM_CONFIGS_DIR="$HOME/sync/dotfiles/sys_specific_configs/$HOSTNAME"
 
@@ -14,9 +14,9 @@ main()
 	remove_stuff
 	link_stuff
 	setup_vim
-	configure_thunderbird
-	configure_gsettings
-	configure_systemd
+	#configure_thunderbird
+	#configure_gsettings
+	#configure_systemd
 }
 
 remove_stuff()
@@ -31,8 +31,8 @@ remove_stuff()
 link_stuff()
 {
 	process_config_dir "$PUBLIC_CONFIGS_DIR"
-	process_config_dir "$PRIVATE_CONFIGS_DIR"
-	process_config_dir "$SYSTEM_CONFIGS_DIR"
+	#process_config_dir "$PRIVATE_CONFIGS_DIR"
+	#process_config_dir "$SYSTEM_CONFIGS_DIR"
 
 	echo "Symlinks created successfully."
 	echo ""
@@ -55,56 +55,56 @@ setup_vim()
 	echo "Vim setup updated."
 }
 
-configure_thunderbird()
-{
-	# Thunderbird
-	TB_PROFILE='Ian'
-	TB_PROFILE_DIR="$HOME/.thunderbird/$TB_PROFILE"
-	if [ -d $TB_PROFILE_DIR ] && hash thunderbird 2>/dev/null ; then
-		# Remove any existing links or files
-		rm -f ~/.thunderbird/Ian/ImapMail/imap-mail.outlook.com/msgFilterRules.dat
-		rm -f ~/.thunderbird/Ian/ImapMail/imap.gmail.com/msgFilterRules.dat
-		rm -f ~/.thunderbird/Ian/ImapMail/connect.uwaterloo.ca/msgFilterRules.dat
+#configure_thunderbird()
+#{
+#	# Thunderbird
+#	TB_PROFILE='Ian'
+#	TB_PROFILE_DIR="$HOME/.thunderbird/$TB_PROFILE"
+#	if [ -d $TB_PROFILE_DIR ] && hash thunderbird 2>/dev/null ; then
+#		# Remove any existing links or files
+#		rm -f ~/.thunderbird/Ian/ImapMail/imap-mail.outlook.com/msgFilterRules.dat
+#		rm -f ~/.thunderbird/Ian/ImapMail/imap.gmail.com/msgFilterRules.dat
+#		rm -f ~/.thunderbird/Ian/ImapMail/connect.uwaterloo.ca/msgFilterRules.dat
+#
+#		ln -sf "$HOME/sync/dotfiles/thunderbird/imap-mail.outlook.com/msgFilterRules.dat" ~/.thunderbird/Ian/ImapMail/imap-mail.outlook.com/msgFilterRules.dat
+#		ln -sf "$HOME/sync/dotfiles/thunderbird/imap.gmail.com/msgFilterRules.dat" ~/.thunderbird/Ian/ImapMail/imap.gmail.com/msgFilterRules.dat
+#		ln -sf "$HOME/sync/dotfiles/thunderbird/connect.uwaterloo.ca/msgFilterRules.dat" ~/.thunderbird/Ian/ImapMail/connect.uwaterloo.ca/msgFilterRules.dat
+#	else
+#		echo "Warning: no thunderbird profile named $TB_PROFILE exists, skipping thunderbird configuration"
+#	fi
+#}
 
-		ln -sf "$HOME/sync/dotfiles/thunderbird/imap-mail.outlook.com/msgFilterRules.dat" ~/.thunderbird/Ian/ImapMail/imap-mail.outlook.com/msgFilterRules.dat
-		ln -sf "$HOME/sync/dotfiles/thunderbird/imap.gmail.com/msgFilterRules.dat" ~/.thunderbird/Ian/ImapMail/imap.gmail.com/msgFilterRules.dat
-		ln -sf "$HOME/sync/dotfiles/thunderbird/connect.uwaterloo.ca/msgFilterRules.dat" ~/.thunderbird/Ian/ImapMail/connect.uwaterloo.ca/msgFilterRules.dat
-	else
-		echo "Warning: no thunderbird profile named $TB_PROFILE exists, skipping thunderbird configuration"
-	fi
-}
+#configure_gsettings()
+#{
+#	gsettings set com.canonical.Unity.Launcher favorites \
+#		"['application://unity-control-center.desktop',
+#		'application://gnome-system-monitor.desktop',
+#		'application://org.gnome.Nautilus.desktop',
+#		'application://opera.desktop',
+#		'application://atom.desktop',
+#		'unity://expo-icon',
+#		'unity://devices',
+#		'unity://running-apps']"
+#
+#	gsettings set org.gnome.nautilus.preferences default-folder-viewer 'list-view'
+#	gsettings set org.compiz.unityshell:/org/compiz/profiles/unity/plugins/unityshell/ icon-size 42
+#
+#	# Disable sticky edges
+#	dconf write /org/compiz/profiles/unity/plugins/unityshell/launcher-capture-mouse false
+#
+#	# Default apps
+#	xdg-settings set default-web-browser opera.desktop
+#}
 
-configure_gsettings()
-{
-	gsettings set com.canonical.Unity.Launcher favorites \
-		"['application://unity-control-center.desktop',
-		'application://gnome-system-monitor.desktop',
-		'application://org.gnome.Nautilus.desktop',
-		'application://opera.desktop',
-		'application://atom.desktop',
-		'unity://expo-icon',
-		'unity://devices',
-		'unity://running-apps']"
-
-	gsettings set org.gnome.nautilus.preferences default-folder-viewer 'list-view'
-	gsettings set org.compiz.unityshell:/org/compiz/profiles/unity/plugins/unityshell/ icon-size 42
-
-	# Disable sticky edges
-	dconf write /org/compiz/profiles/unity/plugins/unityshell/launcher-capture-mouse false
-
-	# Default apps
-	xdg-settings set default-web-browser opera.desktop
-}
-
-configure_systemd()
-{
-	# Systemd does not allow symlinks which is quite frustrating
-	# We must place actual service files, not symlinks
-	mkdir -p ~/.config/systemd/user
-	wget -P ~/.config/systemd/user/ https://raw.githubusercontent.com/syncthing/syncthing/master/etc/linux-systemd/user/syncthing.service
-	systemctl --user enable syncthing.service
-	systemctl --user start syncthing.service
-}
+#configure_systemd()
+#{
+#	# Systemd does not allow symlinks which is quite frustrating
+#	# We must place actual service files, not symlinks
+#	mkdir -p ~/.config/systemd/user
+#	wget -P ~/.config/systemd/user/ https://raw.githubusercontent.com/syncthing/syncthing/master/etc/linux-systemd/user/syncthing.service
+#	systemctl --user enable syncthing.service
+#	systemctl --user start syncthing.service
+#}
 
 #------------------------------------------------------------------------------#
 # Anything below this line should not require editing based on user preference
