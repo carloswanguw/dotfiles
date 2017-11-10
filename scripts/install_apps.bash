@@ -14,7 +14,8 @@ CORE_APPS=(
 	ctags
 	expect
 	git
-	git-lfs
+	#git-lfs
+        gnome-do
 	gparted
 	htop
 	jstest-gtk
@@ -34,26 +35,26 @@ MAIN_APPS=(
 	android-tools-adb
 	default-jdk
 	default-jre
-	docker-ce
-	filezilla
+	#docker-ce
+	#filezilla
 	firefox
 	gimp
 	gpsprune
 	inkscape
 	josm
-	lm-sensors
-	mercurial
+	#lm-sensors
+	#mercurial
 	octave
-	openvpn
-	opera-stable
+	#openvpn
+	#opera-stable
 	pavucontrol
 	pinta
 	python-pip
-	syncthing
-	texlive
-	texlive-latex-extra
-	texlive-science
-	texstudio
+	#syncthing
+	#texlive
+	#texlive-latex-extra
+	#texlive-science
+	#texstudio
 	virtualbox
 	vlc
 	wireshark
@@ -61,8 +62,8 @@ MAIN_APPS=(
 
 # Apps not usually needed on 'work' machines
 ENTERTAINMENT_APPS=(
-	minecraft-installer
-	nautilus-dropbox
+	#minecraft-installer
+	#nautilus-dropbox
 	#spotify-client
 	steam
 )
@@ -119,9 +120,9 @@ repository_additions()
 {
 	sudo add-apt-repository "deb http://archive.canonical.com/ubuntu $(lsb_release -sc) partner"
 	sudo add-apt-repository multiverse
-	sudo add-apt-repository -y ppa:webupd8team/atom
-	sudo add-apt-repository -y ppa:thomas-schiex/blender
-	sudo add-apt-repository -y ppa:minecraft-installer-peeps/minecraft-installer
+	#sudo add-apt-repository -y ppa:webupd8team/atom
+	#sudo add-apt-repository -y ppa:thomas-schiex/blender
+	#sudo add-apt-repository -y ppa:minecraft-installer-peeps/minecraft-installer
 	sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 #
 #	# Spotify
@@ -132,15 +133,15 @@ repository_additions()
 #	wget -O - http://deb.opera.com/archive.key | sudo apt-key add -
 #	echo 'deb https://deb.opera.com/opera-stable/ stable non-free' | sudo tee /etc/apt/sources.list.d/opera-stable.list
 
-	# Syncthing
-	curl -s https://syncthing.net/release-key.txt | sudo apt-key add -
-	echo "deb https://apt.syncthing.net/ syncthing stable" | sudo tee /etc/apt/sources.list.d/syncthing.list
+	## Syncthing
+	#curl -s https://syncthing.net/release-key.txt | sudo apt-key add -
+	#echo "deb https://apt.syncthing.net/ syncthing stable" | sudo tee /etc/apt/sources.list.d/syncthing.list
 
-	# git-lfs
-	curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
+	## git-lfs
+	#curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
 
-	# Docker
-	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+	## Docker
+	#curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
 	echo "Updating package lists ..."
 	sudo apt-get update -qq
@@ -150,12 +151,12 @@ default_install()
 {
 	sudo apt-get -y install "${CORE_APPS[@]}"
 	sudo apt-get -y install "${MAIN_APPS[@]}"
-	install_atom_packages "${ATOM_PACKAGES[@]}"
+	#install_atom_packages "${ATOM_PACKAGES[@]}"
 
 	# Other more complicated installations
-	install_chrome
-	install_ros
-	install_go
+	#install_chrome
+	#install_ros
+	#install_go
 }
 
 #------------------------------------------------------------------------------#

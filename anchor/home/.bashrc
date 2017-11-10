@@ -202,3 +202,8 @@ if [[ ! $TERM =~ screen ]]; then
 fi
 
 export PATH="$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH"
+source /home/cwang/github/renesas-demo/scripts/qnx/qnxros.bash
+export QNXROS_WS=/home/cwang/qnx_catkin_ws
+
+
+
