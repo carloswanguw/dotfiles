@@ -49,6 +49,7 @@ MAIN_APPS=(
 	#opera-stable
 	pavucontrol
 	pinta
+        plantuml
 	python-pip
 	#syncthing
 	#texlive
