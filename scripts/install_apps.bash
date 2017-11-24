@@ -36,6 +36,7 @@ MAIN_APPS=(
 	default-jdk
 	default-jre
 	#docker-ce
+        ffmpeg
 	#filezilla
 	firefox
 	gimp
@@ -66,6 +67,7 @@ ENTERTAINMENT_APPS=(
 	#minecraft-installer
 	#nautilus-dropbox
 	#spotify-client
+        espeak
 	steam
 )
 
