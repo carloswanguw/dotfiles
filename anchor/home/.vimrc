@@ -97,6 +97,7 @@
     set cursorline        " Draw horizontal (sometimes underline) highlight for current pos of cursor
 
     " Indentation settings
+    set modeline
     set shiftwidth=4      " 4 characters indented with >> or <<
     set softtabstop=4     " Tabs (in insert mode) separated by 4 column spaces
     set expandtab         " Expand all tabs to spaces instead
@@ -120,6 +121,9 @@
     set notimeout ttimeout ttimeoutlen=200  " Quickly time out on keycodes, but never time out on mappings
     set pastetoggle=<F11>          " Use <F11> to toggle between 'paste' and 'nopaste'
     set guitablabel=\[%N\]\ %t\ \[%M\] " Setup label format for tabs ([num windows] filename [is file modified])
+
+    " paste toggle
+    set pastetoggle=<F3>
 
     " disable autocommenting for all files
     autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
