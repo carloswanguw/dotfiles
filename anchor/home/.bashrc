@@ -202,11 +202,4 @@ if [[ ! $TERM =~ screen ]]; then
 fi
 
 export PATH="$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH"
-source /home/cwang/git/renesas-demo/scripts/qnx/qnxros.bash
-export QNXROS_WS=/home/cwang/qnx_catkin_ws
-
-# correct for some ld libary issue:
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib
-export VREP_ROOT=/home/cwang/opt/vrep/V-REP_PRO_EDU_V3_4_0_Linux
-source /home/cwang/anm_sim/vrep_test_suite/scripts/test_suite_lib.bash
 export WORKON_HOME=$HOME/.virtualenvs
