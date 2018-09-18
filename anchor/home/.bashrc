@@ -113,10 +113,6 @@ if ! shopt -oq posix; then
     fi
 fi
 
-# source path environments for ROS
-source /opt/ros/kinetic/setup.bash
-source ~/catkin_ws/devel/setup.bash
-
 # base 16 shell configuration
 BASE16_SHELL=$HOME/.config/base16-shell/ [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 
@@ -215,5 +211,11 @@ tmux attach &> /dev/null  # reattach to a session
 
 # Load TMUX to terminal screen
 if [[ ! $TERM =~ screen ]]; then
-    exec tmux -u -2
+   exec tmux -u -2
 fi
+
+######## Additions from Installed Programs
+#-------------------------------------------------------
+
+# source path environments for ROS
+source /opt/ros/kinetic/setup.bash

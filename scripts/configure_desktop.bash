@@ -50,7 +50,6 @@ setup_vim()
 	cd "$BUNDLE/Vundle.vim"
 	git pull -q
 	vim -c VundleInstall -c quitall
-	bash "$BUNDLE/fzf/install" --all >> /dev/null
 
 	echo "Vim setup updated."
 }

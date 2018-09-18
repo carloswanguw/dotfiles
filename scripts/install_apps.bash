@@ -95,6 +95,7 @@ repository_additions()
 	sudo add-apt-repository multiverse
 	#sudo add-apt-repository -y ppa:thomas-schiex/blender
 	sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+        sudo apt-get install curl
 
 	## git-lfs
 	curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
