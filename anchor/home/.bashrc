@@ -121,8 +121,26 @@ source ~/catkin_ws/devel/setup.bash
 BASE16_SHELL=$HOME/.config/base16-shell/ [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 
 ########################################################
-# append git branch at end of prompt (also color coded git status)
-# ANSI color codes
+# ALL CHANGES BELOW THIS HEADER 
+########################################################
+
+######## Add color to prompt
+#-------------------------------------------------------
+force_color_prompt=yes # use color prompt
+
+if [ -n "$force_color_prompt" ]; then
+    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+        # We have color support; assume it's compliant with Ecma-48
+        # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+        # a case would tend to support setf rather than setaf.)
+        color_prompt=yes
+    else
+        color_prompt=
+    fi
+fi
+
+######## Color defines
+#-------------------------------------------------------
 RS="\033[0m"    # reset
 HC="\033[1m"    # hicolor
 UL="\033[4m"    # underline
@@ -143,24 +161,15 @@ BBLE="\033[44m" # background blue
 BMAG="\033[45m" # background magenta
 BCYN="\033[46m" # background cyan
 BWHT="\033[47m" # background white
-force_color_prompt=yes # try to use color prompt
 
-if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-        # We have color support; assume it's compliant with Ecma-48
-        # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-        # a case would tend to support setf rather than setaf.)
-        color_prompt=yes
-    else
-        color_prompt=
-    fi
-fi
-
-# Add git branch if its present to PS1
+######## Function: Current git branch
+#-------------------------------------------------------
 parse_git_branch(){
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/:[\1]/'
 }
 
+######## Function: Set echo color based on git status
+#-------------------------------------------------------
 git_color() {
     # Get the status of the repo and chose a color accordingly
     local STATUS=`git status 2>&1`
@@ -170,36 +179,41 @@ git_color() {
     else
         if [[ "$STATUS" != *'working directory clean'* ]]
         then
-            # red if need to commit 
+            # Red if need to commit 
             echo -e $FRED
         else 
             if [[ "$STATUS" == *'Your branch is ahead'* ]] 
             then 
-                # yellow if need to push 
+                # Yellow if need to push 
                 echo -e $FYEL
             else 
-                # else cyan 
+                # Else cyan 
                 echo -e $FCYN
             fi
         fi
     fi
 }
 
-# PS1="${debian_chroot:+($debian_chroot)}\[$FGRN\]\u\[$RS\]@\h\[$RS\]\[$FWHT\]:\w"
+######## Set terminal prompt (PS1)
+#-------------------------------------------------------
+
+# <user>:<host>
 PS1="${debian_chroot:+($debian_chroot)}\[$RS\]\[$FWHT\]|\[$FGRN\]\u\[$RS\]\[$FWHT\]|\w"
+# <git branch and status color>
 PS1+="\[$HC\]\[\$(git_color)\]"'$(parse_git_branch)'
+# "$" for indicating on prompt end
 PS1+="\[$RS\]\\$ "
 
-unset color_prompt force_color_prompt
-#
-########################################################
 
-# START TMUX ON BASH STARTUP
+######## Unset color prompt
+#-------------------------------------------------------
+unset color_prompt force_color_prompt
+
+######## Start TMUX on each terminal load
+#-------------------------------------------------------
 tmux attach &> /dev/null  # reattach to a session
 
+# Load TMUX to terminal screen
 if [[ ! $TERM =~ screen ]]; then
     exec tmux -u -2
 fi
-
-export PATH="$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH"
-export WORKON_HOME=$HOME/.virtualenvs

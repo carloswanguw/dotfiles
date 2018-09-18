@@ -5,34 +5,32 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 REPO_DIR="$(dirname "$SCRIPT_DIR")"
 
 # Paths to config locations
-PUBLIC_CONFIGS_DIR="$REPO_DIR/anchor"
-PRIVATE_CONFIGS_DIR="$HOME/sync/dotfiles/common_configs"
-SYSTEM_CONFIGS_DIR="$HOME/sync/dotfiles/sys_specific_configs/$HOSTNAME"
+CONFIGS_DIR="$REPO_DIR/anchor"
 
 main()
 {
-	remove_stuff
+	# remove any folders, link a custom base bashrc, setup vim
+	remove_unused
 	link_stuff
 	setup_vim
-	#configure_thunderbird
 	#configure_gsettings
 	#configure_systemd
 }
 
-remove_stuff()
+remove_unused()
 {
 	# Remove unused folders
 	rm -rf ~/Music
 	rm -rf ~/Videos
 	rm -rf ~/Templates
 	rm -rf ~/Examples
+	rm -rf ~/Pictures
+	rm -rf ~/Public
 }
 
 link_stuff()
 {
-	process_config_dir "$PUBLIC_CONFIGS_DIR"
-	#process_config_dir "$PRIVATE_CONFIGS_DIR"
-	#process_config_dir "$SYSTEM_CONFIGS_DIR"
+	process_config_dir "$CONFIGS_DIR"
 
 	echo "Symlinks created successfully."
 	echo ""
@@ -40,6 +38,8 @@ link_stuff()
 
 setup_vim()
 {
+	sudo apt-get -y install vim
+
 	BUNDLE="$HOME/.vim/bundle"
 	if [ ! -d "$BUNDLE/Vundle.vim" ]; then
 		mkdir -p "$BUNDLE"
@@ -54,25 +54,6 @@ setup_vim()
 
 	echo "Vim setup updated."
 }
-
-#configure_thunderbird()
-#{
-#	# Thunderbird
-#	TB_PROFILE='Ian'
-#	TB_PROFILE_DIR="$HOME/.thunderbird/$TB_PROFILE"
-#	if [ -d $TB_PROFILE_DIR ] && hash thunderbird 2>/dev/null ; then
-#		# Remove any existing links or files
-#		rm -f ~/.thunderbird/Ian/ImapMail/imap-mail.outlook.com/msgFilterRules.dat
-#		rm -f ~/.thunderbird/Ian/ImapMail/imap.gmail.com/msgFilterRules.dat
-#		rm -f ~/.thunderbird/Ian/ImapMail/connect.uwaterloo.ca/msgFilterRules.dat
-#
-#		ln -sf "$HOME/sync/dotfiles/thunderbird/imap-mail.outlook.com/msgFilterRules.dat" ~/.thunderbird/Ian/ImapMail/imap-mail.outlook.com/msgFilterRules.dat
-#		ln -sf "$HOME/sync/dotfiles/thunderbird/imap.gmail.com/msgFilterRules.dat" ~/.thunderbird/Ian/ImapMail/imap.gmail.com/msgFilterRules.dat
-#		ln -sf "$HOME/sync/dotfiles/thunderbird/connect.uwaterloo.ca/msgFilterRules.dat" ~/.thunderbird/Ian/ImapMail/connect.uwaterloo.ca/msgFilterRules.dat
-#	else
-#		echo "Warning: no thunderbird profile named $TB_PROFILE exists, skipping thunderbird configuration"
-#	fi
-#}
 
 #configure_gsettings()
 #{
