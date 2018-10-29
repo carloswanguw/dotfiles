@@ -44,6 +44,7 @@ MAIN_APPS=(
 	octave
 	#openvpn
 	#opera-stable
+        nautilus-image-converter
 	pavucontrol
 	pinta
         plantuml
